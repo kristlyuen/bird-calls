@@ -12,7 +12,7 @@ function getFetch(){
         // If there are no recordings, tell the user that they need to pick another country.
         // How can we remove recordings with 'Identity unknown' from the options altogether? Loop through and pop them off?
         if (random === 0 || data.recordings[random].en === 'Identity unknown') {
-          document.querySelector('h2').innerHTML = 'Sorry, there are no birdsongs for that country. Please pick another country.'
+          document.querySelector('h2').innerHTML = `Sorry, we couldn't find a birdcall. Please try again.`
           document.querySelector('audio').classList.add('hidden')
           document.querySelector('p').classList.add('hidden')
         }
