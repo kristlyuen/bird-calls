@@ -3,7 +3,7 @@ document.querySelector('button').addEventListener('click', getFetch)
 function getFetch(){
   const choice = document.querySelector('select').value
   // const url = `https://gtfo-cors--timmy_i_chen.repl.co/get?url=https://www.xeno-canto.org/api/2/recordings?query=q_gt:C+len:10+cnt:"${choice}"`
-  const url = `https://gtfo-cors--timmy_i_chen.repl.co/get?url=https://www.xeno-canto.org/api/2/recordings?query=q_gt:C+len:10+cnt:"${choice}"`
+  const url = `https://gtfo-cors--timmy_i_chen.repl.co/get?url=https://www.xeno-canto.org/api/2/recordings?query=q:A+len:10+area:${choice}`
 
   fetch(url)
       .then(res => res.json()) // parse response as JSON
