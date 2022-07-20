@@ -25,20 +25,28 @@
       <option value="australia">Australia</option>
       <option value="europe">Europe</option>
     </select>
-
-    
      
 		<button type="button" name="button">Get birdsong</button>
     <br><br>
-		<audio controls class="hidden">
+		
+    <audio controls class="hidden">
 			<source src="" type="audio/wav">
 			Your browser does not support the <code>audio</code> element.
 		</audio>
-    <h2></h2>
-    <p class="recording-info"></p>
-    <section class="wiki-info"></section>
-    <img src="" alt="" class="wiki-img">
 
+    <!-- Place for info on when and where birdcall was recorded. -->
+    <p class="recording-info"></p>
+
+    <!-- Place for bird name. -->
+    <h2></h2>
+    
+    <!-- Place for image, info, and page link from Wikipedia API. -->
+    <img src="" alt="" class="wiki-img">
+    <p class="wiki-info"></p>
+    <p class="wiki-link hidden">Click <a href="" class="wiki-full-url">here</a> to go to the full Wikipedia page.</p>
+
+    
+    
 		<script type="text/javascript" src="js/main.js"></script>
 	</body>
 </html>
