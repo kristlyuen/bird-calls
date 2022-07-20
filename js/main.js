@@ -23,7 +23,7 @@ let birdURL
 
 // If the user selects Antarctica, use this URL with the country query parameter for Antarctica. This is because Antarctica is not included in the area query.
 if (choice === 'antarctica') {
-  birdURL = `https://gtfo-cors--timmy_i_chen.repl.co/get?url=https://www.xeno-canto.org/api/2/recordings?query=q_gt:C+len:10+cnt:"${choice}"`
+  birdURL = `https://gtfo-cors--timmy_i_chen.repl.co/get?url=https://www.xeno-canto.org/api/2/recordings?query=q_gt:C+len:10+cnt:'${choice}'`
 }
 // Otherwise, use this URL with the area query parameter.
 else {
@@ -39,9 +39,10 @@ getRandomBird().then(bird => {
   const unknownIdentityFilteredOut = bird.recordings.filter(x => x.gen!== 'Mystery')
   const resultingBirdInfo = unknownIdentityFilteredOut[random - 1]
   
-  // Only show the audio player and text when the "Get birdsong" buttonis clicked.
+  // Only show the audio player and text when the 'Get birdsong' buttonis clicked.
   document.querySelector('audio').classList.remove('hidden')
-  document.querySelector('.recording-info').classList.remove('hidden')
+  // document.querySelector('.recording-info').classList.remove('hidden')
+  document.querySelector('.wiki-link').classList.remove('hidden')
   
   // Return the audio file and the common name of the bird.
   document.querySelector('audio').src = resultingBirdInfo.file
@@ -55,36 +56,45 @@ getRandomBird().then(bird => {
   // Declare a variable for the bird name, transforming all but the first word in the name to lowercase to match parameters for Wikipedia API.
   const birdName = resultingBirdInfo.en.split(' ').map((el, i) => i == 0 ? el : el.toLowerCase()).join('%20')
   console.log(birdName)
-
-  getWikiInfo(`https://en.wikipedia.org/w/api.php?action=query&titles=${birdName}&prop=extracts|pageimages|info&pithumbsize=400&inprop=url&redirects=&format=json&origin=*`).then(wikiData => {
-    
-    const processWikiResults = results => {
-      const resultArray = []
-      Object.keys(results).forEach(key => {
-        const id = key;
-        const title = results[key].title
-        const text = results[key].extract
-        const img = results[key].hasOwnProperty('thumbnail')
-          ? results[key].thumbnail.source
-          : null;
-          const item = {
-            id: id,
-            title: title,
-            img: img,
-            text: text
-          }
-        resultArray.push(item)
-      })
-      console.log(resultArray)
-    }
-    
-    
-    console.log(wikiData)
-  }) 
   
+	const wikiInfo = getWikiInfo(`https://en.wikipedia.org/w/api.php?action=query&titles=${birdName}&prop=extracts|pageimages|info&pithumbsize=400&inprop=url&redirects=&format=json&exintro=1&origin=*`)
+
+		// Change image source 
+		wikiInfo.then(results => {
+			// For each key in the object returned from the API
+			Object.keys(results).forEach(key => {
+				
+        // Get the object with the pageId object on it
+				const pageIDObj = results[key].pages
+				
+        // If the pages key exists in the object
+				if (pageIDObj !== undefined) {
+					
+          // Get the thumbnail
+					const pageID = Object.keys(pageIDObj)[0]
+					const thumbnailObj = pageIDObj[pageID].thumbnail
+					const thumbnailSource = thumbnailObj.source
+
+          // Get the extract
+          const extract = pageIDObj[pageID].extract
+
+          // Get the link
+          const wikiLink = pageIDObj[pageID].fullurl
+					
+          // Change the image source to the thumbnail's source
+					document.querySelector('img').src = thumbnailSource
+          
+          // Add the first paragraph from the Wikipedia entry
+          document.querySelector('.wiki-info').innerHTML = extract
+
+          // Add a link to the full Wikipedia entry
+          document.querySelector('.wiki-full-url').href = wikiLink
+
+				}
+        console.log(pageIDObj)
+      })
+
+		})
   
 })
 }
-
-// link to get main image
-// http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${birdName}&origin=*
