@@ -1,6 +1,6 @@
-document.querySelector('button').addEventListener('click', getFetch)
+document.querySelector('.birdsong-button').addEventListener('click', getFetch)
 
-// Follow this guide: https://levelup.gitconnected.com/combining-api-calls-with-javascript-try-catch-ba1b7b9303a5
+
 
 function getFetch() {
   const getRandomBird = async () => {
@@ -48,7 +48,7 @@ function getFetch() {
 
     // Return the audio file and the common name of the bird.
     document.querySelector('audio').src = resultingBirdInfo.file
-    document.querySelector('h2').innerText = resultingBirdInfo.en
+    document.querySelector('h1').innerText = resultingBirdInfo.en
 
     // Return the date, location, and country where the birdcall wasrecorded.
     document.querySelector('.recording-info').innerText = `This birdsong was recorded on ${resultingBirdInfo.date} at ${resultingBirdInfo.loc}in ${resultingBirdInfo.cnt}.`
@@ -84,7 +84,7 @@ function getFetch() {
             const wikiLink = pageIDObj[pageID].fullurl
           
             // Change the image source to the thumbnail's source
-  					document.querySelector('img').src = thumbnailSource
+  					document.querySelector('.wiki-img').src = thumbnailSource
 
             // Add the first paragraph from the Wikipedia entry
             document.querySelector('.wiki-info').innerHTML = extract
