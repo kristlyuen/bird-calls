@@ -1,5 +1,5 @@
 document.querySelector('.birdsong-button').addEventListener('click', getFetch)
-
+document.querySelector('.surprise-duck').addEventListener('click', getDuck)
 
 
 function getFetch() {
@@ -41,10 +41,9 @@ function getFetch() {
 
     console.log(resultingBirdInfo)
 
-    // Only show the audio player and text when the 'Get birdsong' buttonis clicked.
-    document.querySelector('audio').classList.remove('hidden')
-    // document.querySelector('.recording-info').classList.remove('hidden')
-    document.querySelector('.wiki-link').classList.remove('hidden')
+    // Only show the audio player and text when the 'Get birdsong' button is clicked.
+    document.querySelector('.hide-for-duck').classList.remove('hidden')
+    // document.querySelector('.wiki-link').classList.remove('hidden')
 
     // Return the audio file and the common name of the bird.
     document.querySelector('audio').src = resultingBirdInfo.file
@@ -84,7 +83,7 @@ function getFetch() {
             const wikiLink = pageIDObj[pageID].fullurl
           
             // Change the image source to the thumbnail's source
-  					document.querySelector('.wiki-img').src = thumbnailSource
+  					document.querySelector('.bird-img').src = thumbnailSource
 
             // Add the first paragraph from the Wikipedia entry
             document.querySelector('.wiki-info').innerHTML = extract
@@ -98,3 +97,22 @@ function getFetch() {
   		})
   })
 }
+
+// Get random duck from duck API
+function getDuck() {
+
+  fetch('https://gtfo-cors--timmy_i_chen.repl.co/get?url=https://random-d.uk/api/v2/random')
+      .then(res => res.json()) // parse response as JSON
+      .then(data => {
+        console.log(data.url);
+        // Get random duck.
+        document.querySelector('.bird-img').src = data.url
+        // Add 'duck surprise!' text to h1.
+        document.querySelector('h1').innerText = `Duck surprise!`
+        // Hide the audio player and text.
+        document.querySelector('.hide-for-duck').classList.add('hidden')
+    })
+      .catch(err => {
+          console.log(`error ${err}`)
+      });
+  }
