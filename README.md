@@ -8,4 +8,8 @@ It uses the following APIs:
 
 Languages used: HTML, CSS, JavaScript, Bootstrap
 
+Attribution:
+- [Duck icons created by IconMark - Flaticon](https://www.flaticon.com/free-icons/duck)
+- [Bird vector PNG Designed By totallypic from FreePNG](https://pngtree.com/freepng/cute-geometric-pattern-bird_7312459.html?sol=downref&id=bef)
+
 View it in action here: https://random-bird-calls.netlify.app/
